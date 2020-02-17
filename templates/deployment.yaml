@@ -1,0 +1,28 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: react-frontend
+  namespace: {{ .Release.Namespace}}
+
+spec:
+  serviceName: "react-frontend"
+  replicas: 1
+  selector:
+    matchLabels:
+      app: react
+      role: frontend
+  template:
+    metadata:
+      labels:
+        app: react
+        role: frontend
+    spec:
+      containers:
+      - name: react-frontend
+        image: registry.comiq.fi/containers/examples/react:latest
+        imagePullPolicy: Always
+        ports:
+        - containerPort: 3000
+          name: https
+        

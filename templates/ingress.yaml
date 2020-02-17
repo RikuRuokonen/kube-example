@@ -1,0 +1,19 @@
+---
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: react-frontend
+  namespace: {{ .Release.Namespace }}
+  annotations: 
+    nginx.ingress.kubernetes.io/rewrite-target: /
+    ingress.kubernetes.io/ssl-redirect: "false"
+
+spec: 
+  rules:
+  - host: react.192.168.0.169.xip.io
+    http:
+      paths: 
+      - path: /
+        backend:
+          serviceName: react-frontend
+          servicePort: 3000
